@@ -10,8 +10,7 @@ npm update
 
 npm link (important, otherwise the command won't be recognized by the system)
 
-
-
+---------------------------------------------------------
 
 By default, the branch is main but it's possible to indicate another one after the script call.
 
