@@ -1,0 +1,31 @@
+{
+    "name": "@yellowgb/git-push",
+    "version": "1.0.0",
+    "description": "A CLI to automatically push to a git repo",
+    "main": "src/index.js",
+    "bin": {
+        "@yellowgb/git-push": "bin/git-push",
+        "git-push": "bin/git-push"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "cli",
+        "git-push"
+    ],
+    "author": "Guillaume Brossard",
+    "license": "ISC",
+    "dependencies": {
+        "arg": "^5.0.2",
+        "chalk": "^4.1.2",
+        "esm": "^3.2.25",
+        "inquirer": "^8.2.4",
+        "listr": "^0.14.3",
+        "ncp": "^2.0.0",
+        "pkg-install": "^1.0.0"
+    }
+}
