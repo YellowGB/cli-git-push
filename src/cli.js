@@ -7,9 +7,9 @@ function parseArgumentsIntoOptions(rawArgs) {
         {
             '--yes': Boolean,
             '--message': String,
-            '--default': '--yes',
+            '--default': Boolean,
             '-y': '--yes',
-            '-d': '--yes',
+            '-d': '--default',
             '-m': '--message',
         },
         {
@@ -18,22 +18,27 @@ function parseArgumentsIntoOptions(rawArgs) {
     );
     return {
         skipPrompts: args['--yes'] || false,
+        default: args['--default'] || false,
         branch: args._[0],
-        commitMessage: args['--message'] || new Date(),
+        commitMessage: args['--message'] || false,
     }
 }
 
 async function promptForMissingOptions(options) {
-    const defaultBranch = 'main';
+    const defaultBranch  = 'main';
+    const defaultMessage = new Date();
+
     if (options.skipPrompts) {
         return {
             ...options,
             branch: options.branch || defaultBranch,
+            commitMessage: options.commitMessage || defaultMessage,
         };
     }
 
     const questions = [];
-    if (!options.branch) {
+    if (options.default) options.branch = defaultBranch;
+    else if (!options.branch) {
         questions.push({
             type: 'input',
             name: 'branch',
@@ -42,10 +47,20 @@ async function promptForMissingOptions(options) {
         });
     }
 
+    if (!options.commitMessage) {
+        questions.push({
+            type: 'input',
+            name: 'commitMessage',
+            message: 'Please enter the message for the commit',
+            default: defaultMessage,
+        });
+    }
+
     const answers = await inquirer.prompt(questions);
     return {
         ...options,
         branch: options.branch || answers.branch,
+        commitMessage: options.commitMessage || answers.commitMessage,
     }
 }
 
