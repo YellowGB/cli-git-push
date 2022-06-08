@@ -24,6 +24,8 @@ Flags :
 
 -m "xxx" = message for the commit (if this flag is not called, the commit message will be a simple datetime)
 
+-y = skip all prompts and leave every value to default
+
 
 Alias : gitp
 
